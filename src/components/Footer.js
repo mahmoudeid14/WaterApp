@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 
 const Footer = (props) => {
-    console.log(props);
+    //console.log(props);
     return (
         <View style={styles.footer}>
             <View style={styles.iconView}>

@@ -7,6 +7,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import LogoutScreen from './src/screens/LogoutScreen';
 import MenuScreen from './src/screens/MenuScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
 import WaterProvider from './context/WaterContext';
 import { connect } from 'react-redux';
 
@@ -16,7 +17,8 @@ const navigator = createStackNavigator(
     Home: HomeScreen,
     Login: LoginScreen,
     Logout: LogoutScreen,
-    Menu: MenuScreen
+    Menu: MenuScreen,
+    Register: RegisterScreen
   },
   {
     initialRouteName: 'Home',
