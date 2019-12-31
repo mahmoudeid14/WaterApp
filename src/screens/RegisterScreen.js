@@ -4,6 +4,7 @@ import { View, Alert, Text, StyleSheet, TextInput, Dimensions, Button, Touchable
 import Footer from '../components/Footer';
 import { connect } from 'react-redux';
 import showAlert from '../Helpers';
+import InputComponent from '../components/InputComponent';
 
 const devWidth = Dimensions.get('window').width;
 const devHeight = Dimensions.get('window').height;
@@ -43,6 +44,7 @@ const RegisterScreen = (props) => {
                 {newUser.error != '' ?
                     <Text style={styles.textError}>{newUser.error}</Text>
                     : null}
+                
 
                 <TextInput
                     placeholder="Mobile Number"
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
         width: devWidth - 20,
         borderRadius: 5,
         marginVertical: 5,
-        paddingHorizontal:20
+        paddingHorizontal: 20
     },
     textLabel: {
         fontSize: 25,

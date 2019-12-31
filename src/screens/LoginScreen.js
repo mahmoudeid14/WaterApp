@@ -11,6 +11,7 @@ const LoginScreen = (props) => {
         <View style={styles.container}>
             <View style={styles.body}>
                 <Text style={styles.textLabel}>Login Screen</Text>
+
                 <TextInput
                     placeholder="Mobile Number"
                     style={styles.input}
