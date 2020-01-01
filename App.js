@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import HomeScreen from './src/screens/HomeScreen';
@@ -24,7 +24,15 @@ const navigator = createStackNavigator(
     initialRouteName: 'Home',
     defaultNavigationOptions: {
       title: 'Water Application'
-    }
+    },
+    //  navigationOptions: {
+    //   // headerRight: <Button
+    //   //   onPress={() => this.props.navigation.navigate('Parametres')}
+    //   //   title="Parameters"
+    //   //   color="#fff" />,
+    //     // headerTitle: 'Red', 
+    //     // headerRight: (<Button title='Purple' onPress={() => navigation.navigate('Purple')}/>),
+    // }
   }
 );
 var App = createAppContainer(navigator);
