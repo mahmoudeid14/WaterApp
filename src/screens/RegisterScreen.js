@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { View, Alert, Text, StyleSheet, TextInput, Dimensions, Button, TouchableOpacity } from 'react-native';
 import Footer from '../components/Footer';
+import MenuIcon from '../components/MenuIcon';
 import { connect } from 'react-redux';
 import showAlert from '../Helpers';
 import InputComponent from '../components/InputComponent';
@@ -85,10 +86,15 @@ const RegisterScreen = (props) => {
 
 
             </View>
-            <Footer navigation={props.navigation} />
+            {/* <Footer navigation={props.navigation} /> */}
         </View>);
 }
 
+RegisterScreen.navigationOptions = ({ navigation }) => {
+    return {
+        headerRight: <MenuIcon navigation={navigation}/>
+    }
+}
 
 
 const styles = StyleSheet.create({

@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, Dimensions, Button, TouchableOpacity } from 'react-native';
 import Footer from '../components/Footer';
+import MenuIcon from '../components/MenuIcon';
 import { connect } from 'react-redux';
 
 const devWidth = Dimensions.get('window').width;
@@ -46,11 +47,15 @@ const LoginScreen = (props) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <Footer navigation={props.navigation} />
+            {/* <Footer navigation={props.navigation} /> */}
         </View>);
 }
 
-
+LoginScreen.navigationOptions = ({ navigation }) => {
+    return {
+        headerRight: <MenuIcon navigation={navigation}/>
+    }
+}
 
 const styles = StyleSheet.create({
     container: {

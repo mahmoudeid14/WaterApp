@@ -1,27 +1,26 @@
 
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button,Image } from 'react-native';
 import Footer from '../components/Footer';
+import MenuIcon from '../components/MenuIcon';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
     return (
         <View style={styles.container}>
             <View style={styles.body}>
-                <Text>Home Screen 123 s</Text>
+                <Text>Home Screen 123 e</Text>
             </View>
-            <Footer navigation={navigation} />
+            {/* <Footer navigation={navigation} /> */}
         </View>
     );
 }
 
 
-// HomeScreen.navigationOptions = ({ navigation }) => {
-//     return {
-//         headerRight: <TouchableOpacity onPress={() => props.navigation.navigate('Menu')}>
-//             <Image source={require('../../assets/menu1.png')} style={styles.icon} />
-//         </TouchableOpacity>
-//     }
-// }
+HomeScreen.navigationOptions = ({ navigation }) => {
+    return {
+        headerRight: <MenuIcon navigation={navigation}/>
+    }
+}
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -31,6 +30,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    } ,
+    icon: {
+        width: 50,
+        height: 50,
     }
 });
 

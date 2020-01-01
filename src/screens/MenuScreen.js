@@ -2,11 +2,28 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Footer from '../components/Footer';
+import MenuIcon from '../components/MenuIcon';
+import connect from 'react-redux';
 
 const MenuScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.body}>
+                <View style={styles.viewItem}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                        <Text style={styles.textItem}>Login</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.viewItem}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                        <Text style={styles.textItem}>Create New Account</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.viewItem}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Logout')}>
+                        <Text style={styles.textItem}>Logout</Text>
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.viewItem}>
                     <TouchableOpacity>
                         <Text style={styles.textItem}>New Order</Text>
@@ -28,12 +45,16 @@ const MenuScreen = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <Footer navigation={navigation} />
+            {/* <Footer navigation={navigation} /> */}
         </View>
     );
 }
 
-
+MenuScreen.navigationOptions = ({ navigation }) => {
+    return {
+        headerRight: <MenuIcon navigation={navigation} />
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -45,12 +66,25 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    textItem:{
-        fontSize:26
+    textItem: {
+        fontSize: 26
     },
-    viewItem:{
-        marginVertical:5
+    viewItem: {
+        marginVertical: 5
     }
 });
 
-export default MenuScreen;
+//export default MenuScreen;
+const mapStateToProps = state => {
+    return {
+        currentUser: state.currentUser
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuScreen)
