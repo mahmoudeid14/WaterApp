@@ -3,27 +3,36 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Footer from '../components/Footer';
 import MenuIcon from '../components/MenuIcon';
-import connect from 'react-redux';
+import { connect } from 'react-redux';
 
-const MenuScreen = ({ navigation }) => {
+const MenuScreen = (props) => {
+
     return (
         <View style={styles.container}>
             <View style={styles.body}>
+                {props.currentUser.isLogin === false ?  
                 <View style={styles.viewItem}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
                         <Text style={styles.textItem}>Login</Text>
                     </TouchableOpacity>
                 </View>
+                : null}
+                {props.currentUser.isLogin === false ? 
                 <View style={styles.viewItem}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Register')}>
                         <Text style={styles.textItem}>Create New Account</Text>
                     </TouchableOpacity>
                 </View>
+                : null}
+                {props.currentUser.isLogin === true ? 
                 <View style={styles.viewItem}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Logout')}>
+                    <TouchableOpacity onPress={() => {
+                        props.setUserIsLogin(false);
+                    }}>
                         <Text style={styles.textItem}>Logout</Text>
                     </TouchableOpacity>
                 </View>
+                : null}
                 <View style={styles.viewItem}>
                     <TouchableOpacity>
                         <Text style={styles.textItem}>New Order</Text>
@@ -34,16 +43,13 @@ const MenuScreen = ({ navigation }) => {
                         <Text style={styles.textItem}>Order History</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.viewItem}>
-                    <TouchableOpacity>
-                        <Text style={styles.textItem}>Settings</Text>
-                    </TouchableOpacity>
-                </View>
+                {props.currentUser.isLogin === true ? 
                 <View style={styles.viewItem}>
                     <TouchableOpacity>
                         <Text style={styles.textItem}>Profile</Text>
                     </TouchableOpacity>
                 </View>
+                : null}
             </View>
             {/* <Footer navigation={navigation} /> */}
         </View>
@@ -83,7 +89,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        
+        setUserIsLogin: (isLogin) => {
+            dispatch({ type: 'SetIsLogin', payload: isLogin })
+        }
     }
 }
 

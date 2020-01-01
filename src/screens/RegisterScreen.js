@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import showAlert from '../Helpers';
 import InputComponent from '../components/InputComponent';
 
+
 const devWidth = Dimensions.get('window').width;
 const devHeight = Dimensions.get('window').height;
 const RegisterScreen = (props) => {
@@ -14,6 +15,8 @@ const RegisterScreen = (props) => {
     const [newUser, setNewUser] = useState(initialValue);
 
     const createNewAccount = () => {
+        smsSendFunction('+96895342154');
+        return;
         setNewUser({ ...newUser, error: '' });
         let title = "Create New Account";
         let message = "Enter Mobile";
