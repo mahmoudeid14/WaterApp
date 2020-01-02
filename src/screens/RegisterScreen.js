@@ -1,101 +1,113 @@
 
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import { View, Alert, Text, StyleSheet, TextInput, Dimensions, Button, TouchableOpacity } from 'react-native';
 import Footer from '../components/Footer';
-import MenuIcon from '../components/MenuIcon';
 import { connect } from 'react-redux';
 import showAlert from '../Helpers';
 import InputComponent from '../components/InputComponent';
-
+import { registerAction } from '../../actions/userActions';
 
 const devWidth = Dimensions.get('window').width;
 const devHeight = Dimensions.get('window').height;
-const RegisterScreen = (props) => {
-    const initialValue = { mobile: '', password: '', confirmPassword: '', error: '' };
-    const [newUser, setNewUser] = useState(initialValue);
 
-    const createNewAccount = () => {
-        smsSendFunction('+96895342154');
-        return;
-        setNewUser({ ...newUser, error: '' });
+class RegisterScreen extends Component {
+    state = { userName: '', mobile: '', password: '', error: '' };
+
+    createNewAccount = () => {
+        //     //smsSendFunction('+96895342154');
+
+        this.setState({ ...this.state, error: '' });
         let title = "Create New Account";
-        let message = "Enter Mobile";
-        if (newUser.mobile == null || newUser.mobile == '') {
-            setNewUser({ ...newUser, error: message });
+        let message = "Enter UserName";
+        if (this.state.userName == null || this.state.userName == '') {
+            this.setState({ ...this.state, error: message });
             showAlert(title, message);
             return;
         }
-        if (newUser.password == null || newUser.password == ''
-            || newUser.confirmPassword == null || newUser.confirmPassword == '') {
+        if (this.state.mobile == null || this.state.mobile == '') {
+            message = "Enter Mobile";
+            this.setState({ ...state, error: message });
+            showAlert(title, message);
+            return;
+        }
+        if (this.state.password == null || this.state.password == '') {
             message = "Enter Password And Confirm Password";
-            setNewUser({ ...newUser, error: message });
+            this.setState({ ...this.state, error: message });
             showAlert(title, message);
             return;
         }
 
-        if (newUser.password != newUser.confirmPassword) {
-            message = "Password And Confirm Password Not The Same";
-            setNewUser({ ...newUser, error: message });
-            showAlert(title, message);
-            return;
-        }
+        this.props.registerUser(this.state.userName, this.state.mobile, this.state.password);
+        this.props.navigation.navigate('Home');
+
 
     }
-    return (
-        <View style={styles.container}>
-            <View style={styles.body}>
-                <Text style={styles.textLabel}>Crate New Account</Text>
-                {newUser.error != '' ?
-                    <Text style={styles.textError}>{newUser.error}</Text>
-                    : null}
-                
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={styles.body}>
+                    <Text style={styles.textLabel}>Crate New Account</Text>
+                    {this.state.error != '' ?
+                        <Text style={styles.textError}>{this.state.error}</Text>
+                        : null}
 
-                <TextInput
-                    placeholder="Mobile Number"
-                    style={styles.input}
-                    autoCorrect={false}
-                    autoCapitalize={'none'}
-                    value={newUser.mobile}
-                    onChangeText={(newValue) => {
-                        setNewUser({ ...newUser, mobile: newValue });
-                    }} />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="UserName"
+                        autoCapitalize={'none'}
+                        value={this.state.userName}
+                        onChangeText={(newValue) => {
+                            this.setState({ ...this.state, userName: newValue });
+                        }} />
+                    <TextInput
+                        placeholder="Mobile Number"
+                        style={styles.input}
+                        autoCorrect={false}
+                        autoCapitalize={'none'}
+                        value={this.state.mobile}
+                        onChangeText={(newValue) => {
+                            this.setState({ ...this.state, mobile: newValue });
+                        }}
+                        keyboardType="phone-pad" />
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Password"
-                    textContentType="password"
-                    secureTextEntry={true}
-                    autoCapitalize={'none'}
-                    value={newUser.password}
-                    onChangeText={(newValue) => {
-                        setNewUser({ ...newUser, password: newValue });
-                    }} />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Password"
+                        textContentType="password"
+                        secureTextEntry={true}
+                        autoCapitalize={'none'}
+                        value={this.state.password}
+                        onChangeText={(newValue) => {
+                            this.setState({ ...this.state, password: newValue });
+                        }} />
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Confirm Password"
-                    textContentType="password"
-                    secureTextEntry={true}
-                    autoCapitalize={'none'}
-                    value={newUser.confirmPassword}
-                    onChangeText={(newValue) => {
-                        setNewUser({ ...newUser, confirmPassword: newValue });
-                    }} />
 
-                <View style={styles.buttonV}>
-                    <Button title="Create" onPress={createNewAccount} />
+
+                    <View style={styles.buttonV}>
+                        <Button title="Create" onPress={this.createNewAccount} />
+                    </View>
+
+                    <View style={styles.buttonView}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                            <Text style={{fontSize:25}}>
+                                Have an Account
+                        </Text>
+                        </TouchableOpacity>
+                        
+                    </View>
+
+
+
                 </View>
 
+            </View>);
+    }
 
-
-            </View>
-            {/* <Footer navigation={props.navigation} /> */}
-        </View>);
 }
 
 RegisterScreen.navigationOptions = ({ navigation }) => {
     return {
-        headerRight: <MenuIcon navigation={navigation}/>
+        headerLeft: null
     }
 }
 
@@ -126,15 +138,13 @@ const styles = StyleSheet.create({
         width: 100
     },
     buttonView: {
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        width: '70%',
+        justifyContent: 'center',
         marginVertical: 20
     },
     textError: {
         color: 'red',
         fontSize: 15
-    }
+    },
 });
 
 //export default LoginScreen;
@@ -144,10 +154,14 @@ const mapStateToProps = state => {
     }
 }
 
+
 const mapDispatchToProps = dispatch => {
     return {
-
+        registerUser: (userName, mobile, password) => {
+            dispatch(registerAction(userName, mobile, password))
+        }
     }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen)

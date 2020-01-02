@@ -8,7 +8,7 @@ const HomeScreen = () => {
     return (
         <View style={styles.container}>
             <View style={styles.body}>
-                <Text>Home Screen 123 e</Text>
+                <Text>Home Screen </Text>
             </View>
             {/* <Footer navigation={navigation} /> */}
         </View>
@@ -18,7 +18,8 @@ const HomeScreen = () => {
 
 HomeScreen.navigationOptions = ({ navigation }) => {
     return {
-        headerRight: <MenuIcon navigation={navigation}/>
+        headerRight: <MenuIcon navigation={navigation}/>,
+        headerLeft:null
     }
 }
 const styles = StyleSheet.create({

@@ -25,4 +25,4 @@ smsSendFunction = (number) => {
 }
 
 
-export default {showAlert,smsSendFunction};
+export default showAlert;
