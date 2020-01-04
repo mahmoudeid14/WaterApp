@@ -10,6 +10,8 @@ import MenuScreen from './src/screens/MenuScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import WaterProvider from './context/WaterContext';
 import { connect } from 'react-redux';
+import MapScreen from './src/screens/mapScreen';
+import mapScreen from './src/screens/mapScreen';
 
 
 const navigator = createStackNavigator(
@@ -18,10 +20,11 @@ const navigator = createStackNavigator(
     Login: LoginScreen,
     Logout: LogoutScreen,
     Menu: MenuScreen,
-    Register: RegisterScreen
+    Register: RegisterScreen,
+    Map: mapScreen
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'Home',
     defaultNavigationOptions: {
       title: 'Water Application'
     },
